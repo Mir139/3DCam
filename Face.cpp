@@ -18,6 +18,12 @@ vector<Point> Face::Points() const {
 	return this->points;
 }
 
+Point Face::Points(int n) const {
+    if(n >= 0 && n < this->points.size()) {
+        return this->points[n];
+    }
+}
+
 void Face::SetPoints(vector<Point> points) {
 	if(points.size() == 3) {
 		this->points = points;

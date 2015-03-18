@@ -10,6 +10,7 @@ public:
 	Face(std::vector<Point> points);
 	~Face();
 	std::vector<Point> Points() const;
+    Point Points(int n) const;
 	void SetPoints(std::vector<Point> points);
 	void AddPoints(std::vector<Point> points);
 	unsigned char * Color();

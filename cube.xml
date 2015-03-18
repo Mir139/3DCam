@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <scene>
-	<camera x="0" y="0" z="0" focal="10" orientationx="1" orientationy="0" orientationz="0"/>
+        <camera x="0" y="0" z="0" focal="10" orientationx="0" orientationy="30" orientationz="0"/>
 	<solid>
 		<face>
 			<point x="100" y="20" z="0" />

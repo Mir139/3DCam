@@ -5,23 +5,19 @@ Point::Point() {
 }
 
 Point::Point(double x, double y, double z) {
-	this->coords[0] = x;
-	this->coords[1] = y;
-	this->coords[2] = z;
+    this->coords = {x, y, z};
 }
 
-Point::Point(double * coords) {
-	if(sizeof(coords) == 3) {
-		this->coords[0] = coords[0];
-		this->coords[1] = coords[1];
-		this->coords[2] = coords[2];
+Point::Point(std::vector<double> coords) {
+    if(coords.size() == 3) {
+        this->coords = coords;
 	}
 }
 
 Point::~Point() {
 }
 
-double Point::distance(Point point) const {
+double Point::Distance(Point point) const {
 	double Dif[3];
 	for(int i = 0 ; i < 3 ; i++) {
 		Dif[i] = this->coords[i] - point.Coords(i);
@@ -29,7 +25,7 @@ double Point::distance(Point point) const {
 	return sqrt(Dif[0] * Dif[0] + Dif[1] * Dif[1] + Dif[2] * Dif[2]);
 }
 
-const double * Point::Coords() const {
+const std::vector<double> Point::Coords() const {
 	return this->coords;
 }
 
@@ -42,10 +38,8 @@ double Point::Coords(int n) const {
 	}
 }
 
-void Point::SetCoords(double * coords) {
-	if(sizeof(coords) == 3) {
-		this->coords[0] = coords[0];
-		this->coords[1] = coords[1];
-		this->coords[2] = coords[2];
+void Point::SetCoords(std::vector<double> coords) {
+    if(coords.size() == 3) {
+        this->coords = coords;
 	}
 }

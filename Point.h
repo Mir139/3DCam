@@ -1,19 +1,21 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <vector>
+
 class Point {
 public:
 	Point();
 	Point(double x, double y, double z);
-	Point(double * coords);
+    Point(std::vector<double> coords);
 	~Point();
-	double distance(Point point) const;
-	const double * Coords() const;
+    double Distance(Point point) const;
+    const std::vector<double> Coords() const;
 	double Coords(int n) const;
-	void SetCoords(double * coords);
+    void SetCoords(std::vector<double> coords);
 
 private:
-	double coords[3];
+    std::vector<double> coords;
 };
 
 #endif

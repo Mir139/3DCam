@@ -17,6 +17,16 @@ vector<Face> Solid::Faces() const {
 	return this->faces;
 }
 
+Face Solid::Faces(int n) const {
+    if(n >= 0 && n < this->faces.size()) {
+        return this->faces[n];
+    }
+    else {
+        Face voidFace;
+        return voidFace;
+    }
+}
+
 void Solid::SetFaces(vector<Face> faces) {
 	this->faces = faces;
 }

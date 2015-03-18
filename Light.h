@@ -8,14 +8,14 @@ class Light : public Point {
 public:
 	Light();
 	Light(double x, double y, double z);
-	Light(double * coords);
-	const double * Orientation() const;
+    Light(std::vector<double> coords);
+    const std::vector<double> Orientation() const;
 	double Orientation(int n) const;
-	void SetOrientation(double * orientation);
+    void SetOrientation(std::vector<double> orientation);
 	std::string Type() const;
 	void SetType(std::string type);
 private:
-	double orientation[3];
+    std::vector<double> orientation;
 	std::string type;
 };
 

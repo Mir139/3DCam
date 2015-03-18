@@ -32,6 +32,36 @@ vector<Light> Scene::Lights() const {
 	return this->lights;
 }
 
+Solid Scene::Solids(int n) const {
+    if(n >= 0 && n < this->solids.size()) {
+        return this->solids[n];
+    }
+    else {
+        Solid voidSolid;
+        return voidSolid;
+    }
+}
+
+Camera Scene::Cameras(int n) const {
+    if(n >= 0 && n < this->cameras.size()) {
+        return this->cameras[n];
+    }
+    else {
+        Camera voidCamera;
+        return voidCamera;
+    }
+}
+
+Light Scene::Lights(int n) const {
+    if(n >= 0 && n < this->lights.size()) {
+        return this->lights[n];
+    }
+    else {
+        Light voidLight;
+        return voidLight;
+    }
+}
+
 void Scene::Set(vector<Solid> solids) {
 	this->solids = solids;
 }

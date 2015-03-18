@@ -7,15 +7,15 @@ class PlanCam : public Point {
 public:
 	PlanCam();
 	PlanCam(double x, double y, double z);
-	PlanCam(double * coords);
+    PlanCam(std::vector<double> coords);
 	~PlanCam();
-	const double * Equation() const;
+    std::vector<double> Equation() const;
 	double Equation(int n) const;
-	void SetEquation(double * equation);
-	Point Pojection(Point centreCamera, Point myPoint) const;
+    void SetEquation(std::vector<double> equation);
+    Point Pojection(Point centreCamera, std::vector<double> vectCamPoint) const;
 	
 private:
-	double equation[4];
+    std::vector<double> equation;
 };
 
 #endif

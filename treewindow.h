@@ -4,7 +4,9 @@
 #include <QApplication>
 #include <QWidget>
 #include <QTreeWidget>
+#include <QTreeWidgetItem>
 #include "Scene.h"
+#include <string>
 
 class TreeWindow : public QWidget
 {
@@ -14,8 +16,7 @@ public:
     void ListScene(Scene myScene);
 
 private:
-    QTreeWidget *sceneTreeShow;
-    QTreeWidgetItem *sceneTree;
+    QTreeWidget *sceneTree;
 
 signals:
 

@@ -10,6 +10,7 @@ public:
 	Solid(std::vector<Face> faces);
 	~Solid();
 	std::vector<Face> Faces() const;
+    Face Faces(int n) const;
 	void SetFaces(std::vector<Face> faces);
 	void AddFaces(std::vector<Face> faces);
 	void SetColor(unsigned char * color);

@@ -3,19 +3,22 @@
 using namespace std;
 
 PlanCam::PlanCam() : Point() {
+    this->equation.resize(4);
 }
 
 PlanCam::PlanCam(double x, double y, double z) : Point(x, y, z) {
+    this->equation.resize(4);
 }
 
-PlanCam::PlanCam(double * coords) : Point(coords) {
+PlanCam::PlanCam(std::vector<double> coords) : Point(coords) {
+    this->equation.resize(4);
 }
 
 PlanCam::~PlanCam() {
 }
 
-const double * PlanCam::Equation() const {
-	return this->equation;
+std::vector<double> PlanCam::Equation() const {
+    return this->equation;
 }
 
 double PlanCam::Equation(int n) const {
@@ -25,16 +28,13 @@ double PlanCam::Equation(int n) const {
 	else { return 0; }
 }
 
-void PlanCam::SetEquation(double * equation) {
-	if(sizeof(equation) == 4) {
-		this->equation[0] = equation[0];
-		this->equation[1] = equation[1];
-		this->equation[2] = equation[2];
-		this->equation[3] = equation[3];
+void PlanCam::SetEquation(std::vector<double> equation) {
+    if(equation.size() == 4) {
+        this->equation = equation;
 	}
 }
 
-Point PlanCam::Pojection(Point centreCamera, Point myPoint) const {
+Point PlanCam::Pojection(Point centreCamera, std::vector<double> vectCamPoint) const {
 /*
 	double coordsPoint[3] = {myPoint.Coords()[0], myPoint.Coords()[1], myPoint.Coords()[2]};
 	double distance = this->equation[0] * coordsPoint[0] + this->equation[1] * coordsPoint[1] + this->equation[2] * coordsPoint[2];
@@ -43,11 +43,8 @@ Point PlanCam::Pojection(Point centreCamera, Point myPoint) const {
 	return newPoint;
 */
 
-	double vectCamPoint[3] = {myPoint.Coords(0) - centreCamera.Coords(0), myPoint.Coords(1) - centreCamera.Coords(1), myPoint.Coords(2) - centreCamera.Coords(2)};
-	double vectCamPlan[3] = {this->Coords(0) - centreCamera.Coords(0), this->Coords(1) - centreCamera.Coords(1), this->Coords(2) - centreCamera.Coords(2)};
-	if(vectCamPoint[0] * vectCamPlan[0] + vectCamPoint[1] * vectCamPlan[1] + vectCamPoint[2] * vectCamPlan[2] > 0) {
-		double t = -(this->equation[0] * centreCamera.Coords()[0] + this->equation[1] * centreCamera.Coords()[1] + this->equation[2] * centreCamera.Coords()[2] + this->equation[3]) / (this->equation[0] * vectCamPoint[0] + this->equation[1] * vectCamPoint[1] + this->equation[2] * vectCamPoint[2] + this->equation[3]);
-		Point newPoint(centreCamera.Coords()[0] + vectCamPoint[0] * t, centreCamera.Coords()[1] + vectCamPoint[1] * t, centreCamera.Coords()[2] + vectCamPoint[2] * t);
-		return newPoint;
-	}
+    Point newPoint;
+    double t = -(this->equation[0] * centreCamera.Coords()[0] + this->equation[1] * centreCamera.Coords()[1] + this->equation[2] * centreCamera.Coords()[2] + this->equation[3]) / (this->equation[0] * vectCamPoint[0] + this->equation[1] * vectCamPoint[1] + this->equation[2] * vectCamPoint[2] + this->equation[3]);
+    newPoint = Point(centreCamera.Coords()[0] + vectCamPoint[0] * t, centreCamera.Coords()[1] + vectCamPoint[1] * t, centreCamera.Coords()[2] + vectCamPoint[2] * t);
+    return newPoint;
 }

@@ -17,6 +17,9 @@ public:
 	std::vector<Solid> Solids() const;
 	std::vector<Camera> Cameras() const;
 	std::vector<Light> Lights() const;
+    Solid Solids(int n) const;
+    Camera Cameras(int n) const;
+    Light Lights(int n) const;
 	void Set(std::vector<Solid> solids);
 	void Set(std::vector<Camera> cameras);
 	void Set(std::vector<Light> lights);

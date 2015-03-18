@@ -5,21 +5,27 @@
 #include <stdlib.h>
 #include <QApplication>
 #include "treewindow.h"
+#include "renderwindow.h"
 #include "Scene.h"
 #include "rapidxml.hpp"
+#include "repere.h"
 
 double atof(const char *str);
 
 using namespace std;
 
 Scene importSceneFromXML(string PathToXMLFile);
+void Render(Scene myScene, RenderWindow &myWindow);
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     Scene MainScene;
     MainScene = importSceneFromXML("cube.xml");
-    TreeWindow treeWindow;
-    treeWindow.show();
+    RenderWindow renderWindow;
+    renderWindow.show();
+    Render(MainScene, renderWindow);
+    //TreeWindow treeWindow;
+    //treeWindow.show();
     return app.exec();
 }
 
@@ -75,7 +81,7 @@ Scene importSceneFromXML(string PathToXMLFile) {
         // Get all Cameras
         for(rapidxml::xml_node<> *nodeCamera = nodeScene->first_node("camera") ; nodeCamera ; nodeCamera = nodeCamera->next_sibling("camera")) {
             Camera currentCamera(atof(nodeCamera->first_attribute("x")->value()), atof(nodeCamera->first_attribute("y")->value()), atof(nodeCamera->first_attribute("z")->value()));
-            double currentOrientation[3] = {atof(nodeCamera->first_attribute("orientationx")->value()), atof(nodeCamera->first_attribute("orientationy")->value()), atof(nodeCamera->first_attribute("orientationz")->value())};
+            std::vector<double> currentOrientation = {atof(nodeCamera->first_attribute("orientationx")->value()), atof(nodeCamera->first_attribute("orientationy")->value()), atof(nodeCamera->first_attribute("orientationz")->value())};
             currentCamera.SetOrientation(currentOrientation);
             currentCamera.SetFocal(atof(nodeCamera->first_attribute("focal")->value()));
             Cameras.push_back(currentCamera);
@@ -86,7 +92,7 @@ Scene importSceneFromXML(string PathToXMLFile) {
         // Get all Lights
         for(rapidxml::xml_node<> *nodeLight = nodeScene->first_node("light") ; nodeLight ; nodeLight = nodeLight->next_sibling("light")) {
             Light currentLight(atof(nodeLight->first_attribute("x")->value()), atof(nodeLight->first_attribute("y")->value()), atof(nodeLight->first_attribute("z")->value()));
-            double currentOrientation[3] = {atof(nodeLight->first_attribute("orientationx")->value()), atof(nodeLight->first_attribute("orientationy")->value()), atof(nodeLight->first_attribute("orientationz")->value())};
+            std::vector<double> currentOrientation = {atof(nodeLight->first_attribute("orientationx")->value()), atof(nodeLight->first_attribute("orientationy")->value()), atof(nodeLight->first_attribute("orientationz")->value())};
             currentLight.SetOrientation(currentOrientation);
             string currentType(nodeLight->first_attribute("type")->value());
             currentLight.SetType(currentType);
@@ -96,4 +102,40 @@ Scene importSceneFromXML(string PathToXMLFile) {
 
     }
     return myScene;
+}
+
+void Render(Scene myScene, RenderWindow &myWindow) {
+    vector<Face> faces;
+    for(int i = 0 ; i < myScene.Solids().size() ; i++) {
+        bool showFace = true;
+        for(int j = 0 ; j < myScene.Solids(i).Faces().size() ; j++) {
+            Face cF;
+            vector<Point> points;
+            for(int k = 0 ; k < myScene.Solids(i).Faces(j).Points().size() ; k++) {
+                if(showFace) {
+                    Point cP;
+                    cP = myScene.Solids(i).Faces(j).Points(k);
+                    vector<double> vectCamPoint = {cP.Coords(0) - myScene.Cameras(0).Coords(0), cP.Coords(1) - myScene.Cameras(0).Coords(1), cP.Coords(2) - myScene.Cameras(0).Coords(2)};
+                    vector<double> vectCamPlan = {myScene.Cameras(0).GetPlanCam().Coords(0) - myScene.Cameras(0).Coords(0), myScene.Cameras(0).GetPlanCam().Coords(1) - myScene.Cameras(0).Coords(1), myScene.Cameras(0).GetPlanCam().Coords(2) - myScene.Cameras(0).Coords(2)};
+                    if(vectCamPoint[0] * vectCamPlan[0] + vectCamPoint[1] * vectCamPlan[1] + vectCamPoint[2] * vectCamPlan[2] > 0) {
+                        cP = myScene.Cameras(0).Projection(vectCamPoint);
+                        cP = myScene.Cameras(0).BaseChange(cP);
+                        points.push_back(cP);
+                    }
+                    else {
+                        showFace = false;
+                    }
+                }
+            }
+            if(showFace) {
+                cF.SetPoints(points);
+                faces.push_back(cF);
+            }
+        }
+    }
+    vector<QPainterPath> paths;
+    for(int i = 0 ; i < faces.size() ; i++) {
+        paths.push_back(myWindow.faceToPath(faces[i]));
+    }
+    myWindow.imageRender(paths);
 }
