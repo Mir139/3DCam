@@ -5,12 +5,14 @@
 #include "PlanCam.h"
 #include "repere.h"
 
-class Camera : public Point {
+class Camera {
 public:
 	Camera();
 	Camera(double x, double y, double z);
     Camera(std::vector<double> coords);
 	~Camera();
+    void SetCoords(std::vector<double> coords);
+    void SetCoords(double x, double y, double z);
     const std::vector<double> Orientation() const;
 	double Orientation(int n) const;
     void SetOrientation(std::vector<double> orientation);
@@ -21,9 +23,11 @@ public:
     Point Projection(std::vector<double> vectCamPoint);
     Point BaseChange(Point myPoint);
     PlanCam GetPlanCam() const;
+    Repere GetRepere() const;
 	
 private:
-	double focal;
+    std::vector<double> coords;
+    double focal;
 	PlanCam planCam;
     Repere repere;
 };

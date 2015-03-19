@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "rapidxml.hpp"
 #include "repere.h"
+#include "lam.h"
 
 double atof(const char *str);
 
@@ -115,16 +116,27 @@ void Render(Scene myScene, RenderWindow &myWindow) {
                 if(showFace) {
                     Point cP;
                     cP = myScene.Solids(i).Faces(j).Points(k);
-                    vector<double> vectCamPoint = {cP.Coords(0) - myScene.Cameras(0).Coords(0), cP.Coords(1) - myScene.Cameras(0).Coords(1), cP.Coords(2) - myScene.Cameras(0).Coords(2)};
-                    vector<double> vectCamPlan = {myScene.Cameras(0).GetPlanCam().Coords(0) - myScene.Cameras(0).Coords(0), myScene.Cameras(0).GetPlanCam().Coords(1) - myScene.Cameras(0).Coords(1), myScene.Cameras(0).GetPlanCam().Coords(2) - myScene.Cameras(0).Coords(2)};
-                    if(vectCamPoint[0] * vectCamPlan[0] + vectCamPoint[1] * vectCamPlan[1] + vectCamPoint[2] * vectCamPlan[2] > 0) {
-                        cP = myScene.Cameras(0).Projection(vectCamPoint);
-                        cP = myScene.Cameras(0).BaseChange(cP);
+                    cP.SetRepere(myScene.Cameras(0).GetRepere());
+                    if(LAM::ProdScal(cP.Coords(), myScene.Cameras(0).GetPlanCam().Coords()) > 0) {
+                        cP = myScene.Cameras(0).Projection(cP.Coords());
                         points.push_back(cP);
                     }
                     else {
                         showFace = false;
                     }
+                    /*
+                    vector<double> vectCamPoint = {cP.Coords(0) - myScene.Cameras(0).Coords(0), cP.Coords(1) - myScene.Cameras(0).Coords(1), cP.Coords(2) - myScene.Cameras(0).Coords(2)};
+                    vector<double> vectCamPlan = {myScene.Cameras(0).GetPlanCam().Coords(0) - myScene.Cameras(0).Coords(0), myScene.Cameras(0).GetPlanCam().Coords(1) - myScene.Cameras(0).Coords(1), myScene.Cameras(0).GetPlanCam().Coords(2) - myScene.Cameras(0).Coords(2)};
+                    if(vectCamPoint[0] * vectCamPlan[0] + vectCamPoint[1] * vectCamPlan[1] + vectCamPoint[2] * vectCamPlan[2] > 0) {
+
+                        vectCamPoint = {cP.Coords(0) - myScene.Cameras(0).Coords(0), cP.Coords(1) - myScene.Cameras(0).Coords(1), cP.Coords(2) - myScene.Cameras(0).Coords(2)};
+                        cP = myScene.Cameras(0).Projection(vectCamPoint);
+                        points.push_back(cP);
+                    }
+                    else {
+                        showFace = false;
+                    }
+                    */
                 }
             }
             if(showFace) {

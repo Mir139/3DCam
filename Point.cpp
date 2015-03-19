@@ -1,5 +1,6 @@
 #include "Point.h"
 #include <cmath>
+#include "lam.h"
 
 Point::Point() {
 }
@@ -42,4 +43,19 @@ void Point::SetCoords(std::vector<double> coords) {
     if(coords.size() == 3) {
         this->coords = coords;
 	}
+}
+
+void Point::SetRepere(Repere newRepere) {
+    std::vector<double> oldOrigin = this->repere.Origin();
+    std::vector<double> newOrigin = newRepere.Origin();
+    //this->coords = LAM::ProdMatVec(newRepere.Matrix(), this->coords);
+    this->coords = LAM::ProdMatVec(LAM::Transpose(this->repere.Matrix(), 3, 3), this->coords);
+    this->coords = LAM::Sum(this->coords, oldOrigin);
+    this->repere = newRepere;
+    this->coords = LAM::Sum(this->coords, LAM::Prod((-1), newOrigin));
+    this->coords = LAM::ProdMatVec(this->repere.Matrix(), this->coords);
+}
+
+Repere Point::GetRepere() const {
+    return this->repere;
 }

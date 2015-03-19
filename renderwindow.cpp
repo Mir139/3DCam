@@ -8,10 +8,10 @@ RenderWindow::RenderWindow(QWidget *parent) :
 
 QPainterPath RenderWindow::faceToPath(Face myFace) {
     QPainterPath path;
-    path.moveTo(-myFace.Points(0).Coords(0) + this->width() / 2, -myFace.Points(0).Coords(1) + this->height() / 2);
-    path.lineTo(-myFace.Points(1).Coords(0) + this->width() / 2, -myFace.Points(1).Coords(1) + this->height() / 2);
-    path.lineTo(-myFace.Points(2).Coords(0) + this->width() / 2, -myFace.Points(2).Coords(1) + this->height() / 2);
-    path.lineTo(-myFace.Points(0).Coords(0) + this->width() / 2, -myFace.Points(0).Coords(1) + this->height() / 2);
+    path.moveTo(-myFace.Points(0).Coords(1) + this->width() / 2, -myFace.Points(0).Coords(2) + this->height() / 2);
+    path.lineTo(-myFace.Points(1).Coords(1) + this->width() / 2, -myFace.Points(1).Coords(2) + this->height() / 2);
+    path.lineTo(-myFace.Points(2).Coords(1) + this->width() / 2, -myFace.Points(2).Coords(2) + this->height() / 2);
+    path.lineTo(-myFace.Points(0).Coords(1) + this->width() / 2, -myFace.Points(0).Coords(2) + this->height() / 2);
     return path;
 }
 

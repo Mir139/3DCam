@@ -2,6 +2,7 @@
 #define POINT_H
 
 #include <vector>
+#include "repere.h"
 
 class Point {
 public:
@@ -12,10 +13,13 @@ public:
     double Distance(Point point) const;
     const std::vector<double> Coords() const;
 	double Coords(int n) const;
-    void SetCoords(std::vector<double> coords);
+    virtual void SetCoords(std::vector<double> coords);
+    virtual void SetRepere(Repere newRepere);
+    virtual Repere GetRepere() const;
 
 private:
     std::vector<double> coords;
+    Repere repere;
 };
 
 #endif
