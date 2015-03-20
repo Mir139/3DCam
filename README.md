@@ -2,7 +2,7 @@
 3D Rendering Engine auf des Qt Framework basiert, für die Wissenschaftliches Programmieren für Ingenieure Vorlesung der KIT entwickelt.
 Dieses Programm wird von Robin Loebl entwickelt.
 
-########## Programm starten ##########
+## Programm starten
 Um 3DCam zu starten, gehen Sie in dem Ordner, der das Programm enthält, und nutzen diese Kommandozeile:
 
 ./3DCam
@@ -12,7 +12,7 @@ Das Programm wird mit einer Szene, die eine Kamera und einen Würfel enthält, s
 Hinweis: das 1.0 Release probiert, um eine XML Datei, die "cube.xml" heisst, zu öffnen. Falls es keine so gennante XMl Datei in Programmordner gibt, wird das Programm mit einer leere Szene starten.
 
 
-########## Programm nutzen ##########
+## Programm nutzen
 Das Programmfenster unterteilt sich in 2 Felder :
 
 * Das Render field
@@ -39,7 +39,7 @@ Die Kamera guckt in der x-Richtung. a, b und c sind bzw. die Winkeln um die x-, 
 Mit Hilfe den x-, y-, z-, a-, b-, c- und focal-Felder können Sie die Kamera steuern. Ausserdem man kann auch mit Hilfe den Up-, Down-, Left-, Right-, Forward- und Backward-Knöpfe die Kamera in seinem eigenes Frame bewegen.
 
 
-########## Release Notes ##########
+## Release Notes
 ---------- 1.0 ----------
 * User Interface:
 	* Render field:
