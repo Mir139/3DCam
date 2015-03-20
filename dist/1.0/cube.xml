@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scene>
+	<camera x="-200" y="-400" z="200" focal="200" orientationx="0" orientationy="10" orientationz="45"/>
+	<solid>
+		<face>
+			<point x="100" y="20" z="0" />
+			<point x="100" y="20" z="100" />
+			<point x="200" y="20" z="100" />
+		</face>
+		<face>
+			<point x="100" y="20" z="0" />
+			<point x="200" y="20" z="0" />
+			<point x="200" y="20" z="100" />
+		</face>
+		<face>
+			<point x="100" y="20" z="0" />
+			<point x="100" y="120" z="0" />
+			<point x="100" y="20" z="100" />
+		</face>
+		<face>
+			<point x="100" y="120" z="0" />
+			<point x="100" y="120" z="100" />
+			<point x="100" y="20" z="100" />
+		</face>
+		<face>
+			<point x="100" y="120" z="0" />
+			<point x="100" y="120" z="100" />
+			<point x="200" y="120" z="0" />
+		</face>
+		<face>
+			<point x="100" y="120" z="100" />
+			<point x="200" y="120" z="100" />
+			<point x="200" y="120" z="0" />
+		</face>
+		<face>
+			<point x="200" y="20" z="0" />
+			<point x="200" y="120" z="0" />
+			<point x="200" y="120" z="100" />
+		</face>
+		<face>
+			<point x="200" y="20" z="0" />
+			<point x="200" y="20" z="100" />
+			<point x="200" y="120" z="100" />
+		</face>
+		<face>
+			<point x="100" y="20" z="0" />
+			<point x="200" y="20" z="0" />
+			<point x="200" y="120" z="0" />
+		</face>
+		<face>
+			<point x="100" y="20" z="0" />
+			<point x="100" y="120" z="0" />
+			<point x="200" y="120" z="0" />
+		</face>
+		<face>
+			<point x="100" y="20" z="100" />
+			<point x="200" y="20" z="100" />
+			<point x="100" y="120" z="100" />
+		</face>
+		<face>
+			<point x="100" y="120" z="100" />
+			<point x="200" y="120" z="100" />
+			<point x="200" y="20" z="100" />
+		</face>
+	</solid>
+	<solid>
+		<face>
+			<point x="999999" y="999999" z="0" />
+			<point x="-999999" y="999999" z="0" />
+			<point x="-999999" y="-999999" z="0" />
+		</face>
+		<face>
+			<point x="999999" y="999999" z="0" />
+			<point x="999999" y="-999999" z="0" />
+			<point x="-999999" y="-999999" z="0" />
+		</face>
+	</solid>
+</scene>
