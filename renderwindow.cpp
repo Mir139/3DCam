@@ -1,9 +1,16 @@
 #include "renderwindow.h"
 
 RenderWindow::RenderWindow(QWidget *parent) :
-    QWidget(parent)
+    QFrame(parent)
 {
     setFixedSize(1280,720);
+    setFrameStyle(QFrame::Panel | QFrame::Plain);
+    setLineWidth(1);
+    frame.moveTo(0,0);
+    frame.lineTo(1280,0);
+    frame.lineTo(1280,720);
+    frame.lineTo(0,720);
+    frame.lineTo(0,0);
 }
 
 QPainterPath RenderWindow::faceToPath(Face myFace) {
@@ -36,4 +43,5 @@ void RenderWindow::paintEvent(QPaintEvent *e) {
         painter.fillPath(this->paths[i], Qt::blue);
         painter.setOpacity(1);
     }
+    painter.drawPath(frame);
 }

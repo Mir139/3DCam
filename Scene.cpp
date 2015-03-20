@@ -9,27 +9,27 @@ Scene::~Scene() {
 }
 
 void Scene::Add(vector<Solid> solids) {
-	copy(solids.begin(), solids.end(), std::back_inserter(this->solids));
+    copy(solids.begin(), solids.end(), std::back_inserter(this->solids));
 }
 
 void Scene::Add(vector<Camera> cameras) {
-	copy(cameras.begin(), cameras.end(), std::back_inserter(this->cameras));
+    copy(cameras.begin(), cameras.end(), std::back_inserter(this->cameras));
 }
 
 void Scene::Add(vector<Light> lights) {
-	copy(lights.begin(), lights.end(), std::back_inserter(this->lights));
+    copy(lights.begin(), lights.end(), std::back_inserter(this->lights));
 }
 
 vector<Solid> Scene::Solids() const {
-	return this->solids;
+    return this->solids;
 }
 
 vector<Camera> Scene::Cameras() const {
-	return this->cameras;
+    return this->cameras;
 }
 
 vector<Light> Scene::Lights() const {
-	return this->lights;
+    return this->lights;
 }
 
 Solid Scene::Solids(int n) const {
@@ -42,7 +42,7 @@ Solid Scene::Solids(int n) const {
     }
 }
 
-Camera Scene::Cameras(int n) const {
+Camera Scene::Cameras(int n) {
     if(n >= 0 && n < this->cameras.size()) {
         return this->cameras[n];
     }
@@ -63,35 +63,35 @@ Light Scene::Lights(int n) const {
 }
 
 void Scene::Set(vector<Solid> solids) {
-	this->solids = solids;
+    this->solids = solids;
 }
 
 void Scene::Set(vector<Camera> cameras) {
-	this->cameras = cameras;
+    this->cameras = cameras;
 }
 
 void Scene::Set(vector<Light> lights) {
-	this->lights = lights;
+    this->lights = lights;
 }
 
 void Scene::Clear(string mode) {
-	if(mode == "all") {
-		this->solids.clear();
-		this->cameras.clear();
-		this->lights.clear();
-	}
-	else if(mode == "solid") {
-		this->solids.clear();
-	}
-	else if(mode == "camera") {
-		this->cameras.clear();
-	}
-	else if(mode == "light") {
-		this->lights.clear();
-	}
-	else {
-		this->solids.clear();
-		this->cameras.clear();
-		this->lights.clear();
-	}
+    if(mode == "all") {
+        this->solids.clear();
+        this->cameras.clear();
+        this->lights.clear();
+    }
+    else if(mode == "solid") {
+        this->solids.clear();
+    }
+    else if(mode == "camera") {
+        this->cameras.clear();
+    }
+    else if(mode == "light") {
+        this->lights.clear();
+    }
+    else {
+        this->solids.clear();
+        this->cameras.clear();
+        this->lights.clear();
+    }
 }

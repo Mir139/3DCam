@@ -18,6 +18,9 @@ double Repere::Origin(int n) const {
     if(n >= 0 && n < 3) {
         return this->origin[n];
     }
+    else {
+        return 0;
+    }
 }
 
 void Repere::SetOrigin(std::vector<double> origin) {
@@ -75,6 +78,9 @@ std::vector<double> Repere::Matrix(int vect) const {
     if(vect >= 0 && vect < 3) {
         std::vector<double> returnVect = {this->matrix[3 * vect], this->matrix[3 * vect + 1], this->matrix[3 * vect + 2]};
         return returnVect;
+    }
+    else {
+        return {0,0,0};
     }
 }
 

@@ -1,13 +1,13 @@
 #ifndef RENDERWINDOW_H
 #define RENDERWINDOW_H
 
-#include <QWidget>
+#include <QFrame>
 #include <QPaintEvent>
 #include <QPainter>
 #include <Face.h>
 #include <vector>
 
-class RenderWindow : public QWidget
+class RenderWindow : public QFrame
 {
     Q_OBJECT
 public:
@@ -18,6 +18,7 @@ public:
 private:
     //QPainter *painter;
     std::vector<QPainterPath> paths;
+    QPainterPath frame;
 
 protected:
     void paintEvent(QPaintEvent *e);
