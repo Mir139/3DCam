@@ -6,12 +6,12 @@ MainWindow::MainWindow(QWidget *parent) :
     xmlPath = "cube.xml";
     mainScene = importSceneFromXML();
 
-    setFixedSize(1680, 1050);
+    setFixedSize(1280, 720);
     controlField = new ControlWindow(mainScene, this);
     renderField = new RenderWindow(this);
 
     renderField->move(0,0);
-    controlField->move(1280,0);
+    controlField->move(960,0);
 
     Render();
 
@@ -96,21 +96,27 @@ Scene MainWindow::importSceneFromXML() {
 
 void MainWindow::Render() {
     std::vector<Face> faces;
+    // For each Solid in Scene
     for(unsigned int i = 0 ; i < mainScene.Solids().size() ; i++) {
-        bool showFace = true;
+        // For each Face in current Solid
         for(unsigned int j = 0 ; j < mainScene.Solids(i).Faces().size() ; j++) {
+            bool showFace = true;
             Face cF;
             std::vector<Point> points;
+            // For each Point in current Face
             for(unsigned int k = 0 ; k < mainScene.Solids(i).Faces(j).Points().size() ; k++) {
+                // If we want to show the current Face
                 if(showFace) {
                     Point cP;
                     cP = mainScene.Solids(i).Faces(j).Points(k);
-                    cP.SetRepere(mainScene.Cameras(0).GetRepere());
+                    cP.SetRepere(mainScene.Cameras(0).GetRepere()); // Base changement
+                    // If the point is on the right side of the Camera
                     if(LAM::ProdScal(cP.Coords(), mainScene.Cameras(0).GetPlanCam().Coords()) > 0) {
-                        cP = mainScene.Cameras(0).Projection(cP.Coords());
+                        cP = mainScene.Cameras(0).Projection(cP.Coords()); // Projection on focal plan
                         points.push_back(cP);
                     }
                     else {
+                        // Else we don't want to show this face
                         showFace = false;
                     }
                 }
@@ -122,7 +128,9 @@ void MainWindow::Render() {
         }
     }
     std::vector<QPainterPath> paths;
+    // For each face that we want to show
     for(unsigned int i = 0 ; i < faces.size() ; i++) {
+        // Calculate the path from the face
         paths.push_back(renderField->faceToPath(faces[i]));
     }
     renderField->imageRender(paths);
@@ -146,7 +154,7 @@ void MainWindow::MoveCamera(std::vector<double> addAttr) {
     std::vector<double> newCoords(3);
     std::vector<double> newAngles(3);
     double newFocal;
-    addCoords = LAM::ProdMatVec(LAM::Transpose(mainScene.Cameras(0).GetRepere().Matrix(), 3, 3), addCoords);
+    addCoords = LAM::ProdMatVec(mainScene.Cameras(0).GetRepere().Matrix(), addCoords);
     newCoords = LAM::Sum(addCoords, mainScene.Cameras(0).GetRepere().Origin());
     newAngles = LAM::Sum(LAM::Prod(180 / M_PI, mainScene.Cameras(0).Orientation()), addAngles);
     newFocal = mainScene.Cameras(0).Focal() + addFocal;

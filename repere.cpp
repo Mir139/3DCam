@@ -61,7 +61,7 @@ void Repere::SetMatrix(double y, double q, double j) {
 */
     matrix[0] = cos(j) * cos(q);
     matrix[1] = sin(j) * cos(y) + cos(j) * sin(q) * sin(y);
-    matrix[2] = sin(j) * sin(y) + cos(j) * sin(q) * cos(y);
+    matrix[2] = sin(j) * sin(y) - cos(j) * sin(q) * cos(y);
     matrix[3] = -sin(j) * cos(q);
     matrix[4] = cos(j) * cos(y) - sin(j) * sin(q) * sin(y);
     matrix[5] = cos(j) * sin(y) + sin(j) * sin(q) * cos(y);

@@ -40,6 +40,17 @@ Mit Hilfe den x-, y-, z-, a-, b-, c- und focal-Felder können Sie die Kamera ste
 
 
 ## Release Notes
+---------- 1.1 ----------
+* User Interface:
+	* Die gesamte fenster ist jetzt 1280px Breite und 720px Höhe, deshalb kann das Programm auf kleinere Geräte sich darstellen
+	* Render field:
+		* Das Render field ist jetzt 960px Breite und 640px Höhe
+* Algorithmus:
+	* Lösung von einigen Fehler, die die Darstellung fehlerhaft machten
+		* Projektion Algorithmus
+		* Koordinatensystem Änderung Algorithmus
+		* Bewegung der Kamera durch die Knöpfe wird korrigiert
+
 ---------- 1.0 ----------
 * User Interface:
 	* Render field:

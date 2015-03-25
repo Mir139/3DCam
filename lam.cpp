@@ -10,7 +10,7 @@ std::vector<double> LAM::ProdMatVec(std::vector<double> M, std::vector<double> v
     std::vector<double> vr(M.size() / v.size());
     for(int i = 0 ; i < vr.size() ; i++) {
         for(int j = 0 ; j < v.size() ; j++) {
-            vr[i] += M[i * v.size() + j] * v[j];
+            vr[i] += M[j * v.size() + i] * v[j];
         }
     }
     return vr;
